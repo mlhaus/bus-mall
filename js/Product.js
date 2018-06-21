@@ -34,41 +34,48 @@ function initialize() {
   new Product('Poorly Designed Water Can', 'img/water-can.jpg');
   new Product('Interestingly Designed Wine Glass', 'img/wine-glass.jpg');
 
-  console.log('Initialized Products: ', Product.all);
+  // console.log('Initialized Products: ', Product.all);
 }
 
 let numProductsToDisplay = 3;
 let productsPreviouslyDisplayed = [];
 let productsToDisplay = [];
+
+function generateRandomImages(){
+  while(productsToDisplay.length < numProductsToDisplay){
+    let randomNumber = Math.floor(Math.random() * Product.all.length);
+    if(productsToDisplay.includes(randomNumber) || productsPreviouslyDisplayed.includes(randomNumber)){
+      continue;
+    }
+    productsToDisplay.push(randomNumber);
+  }
+}
+
+function generateHTMLToDisplayImages(){
+  let imageRow = document.getElementById('productImages');
+  imageRow.innerHTML = '';
+  for(let i = 0; i < numProductsToDisplay; i++){
+    let div = document.createElement('div');
+    div.classList.add('column');
+    div.style.width = ((100 / numProductsToDisplay) - ((numProductsToDisplay - 1) / numProductsToDisplay)) + '%';
+    imageRow.appendChild(div);
+    let h4 = document.createElement('h4');
+    h4.textContent = Product.all[productsToDisplay[i]].name;
+    div.appendChild(h4);
+    let img = document.createElement('img');
+    img.setAttribute('src', Product.all[productsToDisplay[i]].filePath);
+    img.setAttribute('alt', Product.all[productsToDisplay[i]].description);
+    img.setAttribute('title', Product.all[productsToDisplay[i]].description);
+    div.appendChild(img);
+  }
+}
+
 function displayProducts() {
   productsPreviouslyDisplayed = productsToDisplay;
   productsToDisplay = [];
   if(Product.all.length > numProductsToDisplay * 2) {
-    while(productsToDisplay.length < numProductsToDisplay){
-      let randomNumber = Math.floor(Math.random() * Product.all.length);
-      if(productsToDisplay.includes(randomNumber) || productsPreviouslyDisplayed.includes(randomNumber)){
-        continue;
-      }
-      productsToDisplay.push(randomNumber);
-    }
-    console.log(productsToDisplay);
-    let imageRow = document.getElementById('productImages');
-    console.log(imageRow);
-    imageRow.innerHTML = '';
-    for(let i = 0; i < numProductsToDisplay; i++){
-      let div = document.createElement('div');
-      div.classList.add('column');
-      div.style.width = ((100 / numProductsToDisplay) - ((numProductsToDisplay - 1) / numProductsToDisplay)) + '%';
-      imageRow.appendChild(div);
-      let h4 = document.createElement('h4');
-      h4.textContent = Product.all[productsToDisplay[i]].name;
-      div.appendChild(h4);
-      let img = document.createElement('img');
-      img.setAttribute('src', Product.all[productsToDisplay[i]].filePath);
-      img.setAttribute('alt', Product.all[productsToDisplay[i]].description);
-      img.setAttribute('title', Product.all[productsToDisplay[i]].description);
-      div.appendChild(img);
-    }
+    generateRandomImages();
+    generateHTMLToDisplayImages();
   }
   else {
     console.log('You need to add at least ' + (numProductsToDisplay * 2 + 1 - Product.all.length) + ' more product(s).');
