@@ -37,6 +37,15 @@ function initialize() {
   // console.log('Initialized Products: ', Product.all);
 }
 
+function respondToImageClick(event){
+  if(event.target.nodeName === 'IMG' || event.target.nodeName === 'H4'){
+    // console.log(event.target.parentNode.currentProduct);
+    // console.log('Total clicks: ' + (++Product.totalVoteCount));
+    event.target.parentNode.currentProduct.voteCount++;
+    displayProducts();
+  }
+}
+
 let numProductsToDisplay = 3;
 let productsPreviouslyDisplayed = [];
 let productsToDisplay = [];
@@ -53,9 +62,12 @@ function generateRandomImages(){
 
 function generateHTMLToDisplayImages(){
   let imageRow = document.getElementById('productImages');
+  imageRow.addEventListener('click', respondToImageClick);
   imageRow.innerHTML = '';
   for(let i = 0; i < numProductsToDisplay; i++){
+    Product.all[productsToDisplay[i]].showCount++;
     let div = document.createElement('div');
+    div.currentProduct = Product.all[productsToDisplay[i]];
     div.classList.add('column');
     div.style.width = ((100 / numProductsToDisplay) - ((numProductsToDisplay - 1) / numProductsToDisplay)) + '%';
     imageRow.appendChild(div);
@@ -64,7 +76,7 @@ function generateHTMLToDisplayImages(){
     div.appendChild(h4);
     let img = document.createElement('img');
     img.setAttribute('src', Product.all[productsToDisplay[i]].filePath);
-    img.setAttribute('alt', Product.all[productsToDisplay[i]].description);
+    img.setAttribute('alt', Product.all[productsToDisplay[i]].name);
     img.setAttribute('title', Product.all[productsToDisplay[i]].description);
     div.appendChild(img);
   }
