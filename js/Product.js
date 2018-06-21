@@ -39,8 +39,8 @@ function initialize() {
 
 function respondToImageClick(event){
   if(event.target.nodeName === 'IMG' || event.target.nodeName === 'H4'){
-    console.log(event.target.parentNode.currentProduct);
-    console.log('Total clicks: ' + (++Product.totalVoteCount));
+    // console.log(event.target.parentNode.currentProduct);
+    // console.log('Total clicks: ' + (++Product.totalVoteCount));
     event.target.parentNode.currentProduct.voteCount++;
     displayProducts();
   }
@@ -65,6 +65,7 @@ function generateHTMLToDisplayImages(){
   imageRow.addEventListener('click', respondToImageClick);
   imageRow.innerHTML = '';
   for(let i = 0; i < numProductsToDisplay; i++){
+    Product.all[productsToDisplay[i]].showCount++;
     let div = document.createElement('div');
     div.currentProduct = Product.all[productsToDisplay[i]];
     div.classList.add('column');
