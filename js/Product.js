@@ -37,6 +37,13 @@ function initialize() {
   // console.log('Initialized Products: ', Product.all);
 }
 
+function respondToImageClick(event){
+  if(event.target.nodeName === 'IMG' || event.target.nodeName === 'H4'){
+    console.log('Total clicks: ' + (++Product.totalVoteCount));
+    displayProducts();
+  }
+}
+
 let numProductsToDisplay = 3;
 let productsPreviouslyDisplayed = [];
 let productsToDisplay = [];
@@ -53,6 +60,7 @@ function generateRandomImages(){
 
 function generateHTMLToDisplayImages(){
   let imageRow = document.getElementById('productImages');
+  imageRow.addEventListener('click', respondToImageClick);
   imageRow.innerHTML = '';
   for(let i = 0; i < numProductsToDisplay; i++){
     let div = document.createElement('div');
@@ -64,7 +72,7 @@ function generateHTMLToDisplayImages(){
     div.appendChild(h4);
     let img = document.createElement('img');
     img.setAttribute('src', Product.all[productsToDisplay[i]].filePath);
-    img.setAttribute('alt', Product.all[productsToDisplay[i]].description);
+    img.setAttribute('alt', Product.all[productsToDisplay[i]].name);
     img.setAttribute('title', Product.all[productsToDisplay[i]].description);
     div.appendChild(img);
   }
