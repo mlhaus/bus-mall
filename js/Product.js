@@ -40,12 +40,14 @@ function initialize() {
 function respondToImageClick(event){
   if(event.target.nodeName === 'IMG' || event.target.nodeName === 'H4'){
     // console.log(event.target.parentNode.currentProduct);
-    // console.log('Total clicks: ' + (++Product.totalVoteCount));
+    Product.totalVoteCount++;
+    console.log('Total clicks: ' + (Product.totalVoteCount));
     event.target.parentNode.currentProduct.voteCount++;
     displayProducts();
   }
 }
 
+let imageRow = document.getElementById('productImages');
 let numProductsToDisplay = 3;
 let productsPreviouslyDisplayed = [];
 let productsToDisplay = [];
@@ -61,7 +63,6 @@ function generateRandomImages(){
 }
 
 function generateHTMLToDisplayImages(){
-  let imageRow = document.getElementById('productImages');
   imageRow.addEventListener('click', respondToImageClick);
   imageRow.innerHTML = '';
   for(let i = 0; i < numProductsToDisplay; i++){
@@ -83,14 +84,19 @@ function generateHTMLToDisplayImages(){
 }
 
 function displayProducts() {
-  productsPreviouslyDisplayed = productsToDisplay;
-  productsToDisplay = [];
-  if(Product.all.length > numProductsToDisplay * 2) {
-    generateRandomImages();
-    generateHTMLToDisplayImages();
+  if(Product.totalVoteCount < 25){
+    productsPreviouslyDisplayed = productsToDisplay;
+    productsToDisplay = [];
+    if(Product.all.length > numProductsToDisplay * 2) {
+      generateRandomImages();
+      generateHTMLToDisplayImages();
+    }
+    else {
+      console.log('You need to add at least ' + (numProductsToDisplay * 2 + 1 - Product.all.length) + ' more product(s).');
+    }
   }
   else {
-    console.log('You need to add at least ' + (numProductsToDisplay * 2 + 1 - Product.all.length) + ' more product(s).');
+    imageRow.removeEventListener('click', respondToImageClick);
   }
 }
 
