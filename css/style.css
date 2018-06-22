@@ -39,7 +39,7 @@ img {
 
 .column h4 {
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(101, 78, 163, 0.5);
   color: white;
   font-family: 'Raleway', sans-serif;
   font-size: 1.2em;
@@ -97,4 +97,37 @@ img {
   .column h4 {
     font-size: 1.8em;
   }
+}
+
+table {
+  margin: 0 auto;
+}
+
+thead tr:first-of-type {
+  background-color: rgb(101, 78, 163, 0.5);
+  color: white;
+}
+
+th, td {
+  border: 1px solid #666;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1em;
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+th:nth-child(1), td:nth-child(1) {
+  max-width: 100px;
+  padding: 1px;
+}
+
+tbody tr:nth-child(odd){
+  background-color: rgba(201, 186, 239, 0.5);
+  color: #453670ad;
+}
+
+tbody tr:nth-child(even){
+  background-color: rgba(150, 139, 178, 0.5);
+  color: #453670ad;
 }
