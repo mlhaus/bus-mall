@@ -96,6 +96,7 @@ function displayProducts() {
   }
   else {
     imageRow.removeEventListener('click', respondToImageClick);
+    displaySummaryTable();
   }
 }
 
@@ -104,5 +105,4 @@ window.addEventListener('load', function() {
     initialize();
   }
   displayProducts();
-  displaySummaryTable();
 });
