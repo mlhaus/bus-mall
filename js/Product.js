@@ -78,7 +78,6 @@ function generateHTMLToDisplayImages(){
     let img = document.createElement('img');
     img.setAttribute('src', Product.all[productsToDisplay[i]].filePath);
     img.setAttribute('alt', Product.all[productsToDisplay[i]].name);
-    img.setAttribute('title', Product.all[productsToDisplay[i]].description);
     div.appendChild(img);
   }
 }
