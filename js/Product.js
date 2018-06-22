@@ -104,4 +104,5 @@ window.addEventListener('load', function() {
     initialize();
   }
   displayProducts();
+  displaySummaryTable();
 });
