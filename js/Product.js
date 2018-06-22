@@ -82,6 +82,10 @@ function generateHTMLToDisplayImages(){
   }
 }
 
+function hideProducts() {
+  imageRow.innerHTML = '';
+}
+
 function displayProducts() {
   if(Product.totalVoteCount < 25){
     productsPreviouslyDisplayed = productsToDisplay;
@@ -97,6 +101,7 @@ function displayProducts() {
   else {
     imageRow.removeEventListener('click', respondToImageClick);
     displaySummaryTable();
+    hideProducts();
   }
 }
 
